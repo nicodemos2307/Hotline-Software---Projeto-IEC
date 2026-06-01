@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOTLINE HIGHLIGHTS</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="login-page" class="page active">
+ <div class="login-wrap">
+ <span class="login-logo" data-text="HOTLINE HIGHLIGHTS">
+ <span class="hl">HOTLINE</span>&nbsp;<span class="hl2">HIGHLIGHTS</span>
+ </span>
+ <p class="login-eyebrow">// SEUS CLIPES SALVOS · PRONTO PARA POSTAR</p>
+ <div class="login-card">
+ <div class="login-heading">CONECTE SEU INSTAGRAM</div>
+ <p class="login-desc">Informe seu <strong>@ do Instagram</strong> para acessar seus clipes salvos e postar na sua rede.</p>
+ <div class="ig-group">
+ <span class="ig-at">@</span>
+ <input class="ig-input" id="inp-ig" type="text" placeholder="seu.instagram" autocomplete="off" maxlength="30"/>
+ </div>
+ <p class="ig-hint">// ex: fulano · clan_br · player777</p>
+ <p class="error-line" id="error-line"></p>
+ <button class="login-btn" onclick="doLogin()">📷 ACESSAR MEUS CLIPES</button>
+ <div class="login-extras">
+ <button class="login-extra-btn" onclick="goToMapPreview()">🗺 VER MAPA DA PARTIDA</button>
+ </div>
+ <div class="ig-footnote">
+ <span>seus dados não são armazenados</span>
+ </div>
+ </div>
+ </div>
+</div>
+<div id="main-page" class="page">
+ <nav>
+ <span class="nav-logo" data-text="HOTLINE HIGHLIGHTS" onclick="showPage('main-page')" style="cursor:crosshair">
+ <span class="hl">HOTLINE</span>&nbsp;<span class="hl2">HIGHLIGHTS</span>
+ </span>
+ <div class="nav-right">
+ <span class="nav-session" style="display:none" id="nav-sess-label">SESSÃO: <strong>FLORESTA SUL · 14 MAI</strong></span>
+ <button class="nav-tab" onclick="showPage('map-page')">🗺 MAPA</button>
+ <div class="nav-ig-pill">
+ <div class="nav-ig-dot"></div>
+ <span class="nav-ig-handle" id="nav-ig-handle">@—</span>
+ <div class="nav-dropdown">
+ <button class="dropdown-item" onclick="doLogout()">// SAIR</button>
+ </div>
+ </div>
+ </div>
+ </nav>
+ <section class="hero">
+ <div class="hero-eyebrow">SEUS CLIPES SALVOS</div>
+ <div class="ig-banner">
+ <span class="ig-banner-text">📷 POSTANDO PARA <strong id="banner-handle">@—</strong></span>
+ </div>
+ <h1 class="hero-title">
+ <span class="line1">SEUS MELHORES</span>
+ <span class="line2" data-text="MOMENTOS SALVOS">MOMENTOS SALVOS</span>
+ </h1>
+ <div class="hero-stats">
+ <div class="stat-item"><span class="stat-value">32:14</span><span class="stat-label">DURAÇÃO</span></div>
+ <div class="stat-item"><span class="stat-value">10</span><span class="stat-label">CLIPES</span></div>
+ <div class="stat-item"><span class="stat-value" id="stat-posted">00</span><span class="stat-label">POSTADOS</span></div>
+ <div class="stat-item"><span class="stat-value" style="color:var(--yellow)" id="stat-value-total">R$0</span><span class="stat-label">VALOR CART.</span></div>
+ <div class="stat-item"><span class="stat-value" style="color:var(--cyan)">VITÓRIA</span><span class="stat-label">RESULTADO</span></div>
+ </div>
+ </section>
+ <div class="main">
+ <div>
+ <div class="section-label">
+ <span class="section-heading">// CLIPES SALVOS · R$20 CADA</span>
+ <span class="section-total">10 ARQUIVOS</span>
+ </div>
+ <div class="clips-grid" id="clips-grid"></div>
+ </div>
+ <aside class="sidebar">
+ <div class="sidebar-card">
+ <div class="sidebar-sec">PERFIL INSTAGRAM</div>
+ <div class="ig-profile-block">
+ <div class="ig-profile-icon">📷</div>
+ <div>
+ <div class="ig-profile-handle" id="sidebar-handle">@—</div>
+ <div class="ig-profile-status">● CONECTADO</div>
+ </div>
+ </div>
+ <div class="divider"></div>
+ <div class="sidebar-sec">CARRINHO <span class="s-count" id="posted-count">00</span></div>
+ <div class="posted-list" id="posted-list"><span class="posted-empty">_ NENHUM CLIPE SELECIONADO</span></div>
+ <div class="divider"></div>
+ <div class="summary-row"><span class="summary-label">CLIPES</span><span class="summary-value" id="summary-remaining">0 / 10</span></div>
+ <div class="summary-row" style="margin-bottom:1.1rem"><span class="summary-label">TOTAL</span><span class="summary-value price-highlight" id="summary-total">R$ 0,00</span></div>
+ <button class="post-all-btn" id="post-all-btn" onclick="addAllToCart()" disabled>
+ 📷 ADICIONAR TODOS — <span id="btn-total-val">R$200</span>
+ </button>
+ <button id="checkout-btn" onclick="goToPayment()" style="display:none;margin-top:8px;width:100%;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.22em;padding:13px;background:var(--green);color:#000;border:none;cursor:crosshair;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:all 0.12s;">
+ ✓ PAGAR &amp; POSTAR
+ </button>
+ <p class="compile-sub">// R$20 POR CLIPE · <span id="unposted-count">10</span> DISPONÍVEIS</p>
+ </div>
+ </aside>
+ </div>
+</div>
+<div id="payment-page" class="page">
+ <nav>
+ <span class="nav-logo" data-text="HOTLINE HIGHLIGHTS" onclick="showPage('main-page')" style="cursor:crosshair">
+ <span class="hl">HOTLINE</span>&nbsp;<span class="hl2">HIGHLIGHTS</span>
+ </span>
+ <div class="nav-right">
+ <span style="font-family:'VT323',monospace;font-size:15px;color:var(--muted);letter-spacing:0.1em">// CHECKOUT</span>
+ <div class="nav-ig-pill">
+ <div class="nav-ig-dot"></div>
+ <span class="nav-ig-handle" id="pay-ig-handle">@—</span>
+ </div>
+ </div>
+ </nav>
+ <div class="pay-wrap">
+ <div class="pay-header">
+ <button class="pay-back" onclick="showPage('main-page')">← VOLTAR AOS CLIPES</button>
+ <div class="pay-title">PAGAMENTO</div>
+ <div class="pay-subtitle">// SEUS CLIPES SERÃO POSTADOS APÓS CONFIRMAÇÃO</div>
+ </div>
+ <div class="pay-order-box">
+ <div class="pay-order-title">// RESUMO DO PEDIDO</div>
+ <div id="pay-order-items"></div>
+ <div class="pay-total-row">
+ <span class="pay-total-label">TOTAL A PAGAR</span>
+ <span class="pay-total-val" id="pay-total-display">R$ 0,00</span>
+ </div>
+ </div>
+ <div class="pay-methods">
+ <button class="pay-method-btn pm-active" id="pm-pix" onclick="selectMethod('pix')"><span class="pm-icon">⚡</span>PIX</button>
+ <button class="pay-method-btn" id="pm-card" onclick="selectMethod('card')"><span class="pm-icon">💳</span>CARTÃO</button>
+ <button class="pay-method-btn" id="pm-boleto" onclick="selectMethod('boleto')"><span class="pm-icon">📄</span>BOLETO</button>
+ </div>
+ <div id="panel-pix" class="pix-panel">
+ <div class="pix-key-label">ESCANEIE O QR CODE</div>
+ <div class="pix-qr"><canvas id="pix-canvas" width="130" height="130"></canvas></div>
+ <div class="pix-key-label">OU COPIE A CHAVE PIX</div>
+ <div class="pix-key" id="pix-key-display">hotline.highlights@pix.com.br</div>
+ <button class="pix-copy-btn" onclick="copyPixKey()">COPIAR CHAVE</button>
+ <div style="margin-top:10px;font-family:'VT323',monospace;font-size:14px;color:var(--muted);letter-spacing:0.08em">
+ Valor: <span style="color:var(--yellow);font-family:'Bebas Neue',sans-serif;font-size:18px;" id="pix-val-show">R$ 0,00</span>
+ </div>
+ </div>
+ <div id="panel-card" class="card-panel" style="display:none">
+ <div class="card-visual">
+ <div class="card-chip"></div>
+ <div class="card-num-disp" id="card-num-disp">•••• •••• •••• ••••</div>
+ <div class="card-brand">VISA</div>
+ </div>
+ <div class="field-group">
+ <div class="field-label">NÚMERO DO CARTÃO</div>
+ <input class="field-input" id="card-num" type="text" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCard(this)" autocomplete="off"/>
+ </div>
+ <div class="field-group">
+ <div class="field-label">NOME NO CARTÃO</div>
+ <input class="field-input" type="text" placeholder="SEU NOME AQUI" autocomplete="off" style="text-transform:uppercase"/>
+ </div>
+ <div class="field-row">
+ <div class="field-group"><div class="field-label">VALIDADE</div><input class="field-input" type="text" placeholder="MM/AA" maxlength="5" oninput="formatExpiry(this)" autocomplete="off"/></div>
+ <div class="field-group"><div class="field-label">CVV</div><input class="field-input" type="text" placeholder="•••" maxlength="3" autocomplete="off"/></div>
+ </div>
+ <div class="field-group">
+ <div class="field-label">PARCELAS</div>
+ <select class="field-input" id="installments" style="cursor:crosshair"></select>
+ </div>
+ </div>
+ <div id="panel-boleto" class="boleto-panel" style="display:none">
+ <div class="pix-key-label" style="margin-bottom:8px">CÓDIGO DE BARRAS</div>
+ <div class="boleto-bar"></div>
+ <div class="boleto-code" id="boleto-code">34191.09008 00002.680002 78850.160009 4 87560000020000</div>
+ <button class="pix-copy-btn" onclick="copyBoleto()" style="margin:10px auto;display:block">COPIAR CÓDIGO</button>
+ <div class="boleto-warn">⚠ VENCE EM 3 DIAS ÚTEIS</div>
+ </div>
+ <button class="pay-confirm-btn" onclick="confirmPayment()"><span>✓</span> CONFIRMAR PAGAMENTO</button>
+ <p class="pay-security">// PAGAMENTO SEGURO · DADOS CRIPTOGRAFADOS · SSL 256bit</p>
+ </div>
+</div>
+<div id="success-page" class="page">
+ <nav>
+ <span class="nav-logo" data-text="HOTLINE HIGHLIGHTS"><span class="hl">HOTLINE</span>&nbsp;<span class="hl2">HIGHLIGHTS</span></span>
+ </nav>
+ <div class="success-wrap">
+ <div class="success-icon">✓</div>
+ <div class="success-title">PAGAMENTO CONFIRMADO!</div>
+ <div class="success-sub">
+ Seus clipes estão sendo postados em <strong id="suc-handle" style="color:var(--cyan)">@—</strong><br/>Confira seu Instagram em instantes.
+ </div>
+ <div style="background:var(--surface);border:1px solid rgba(0,255,136,0.3);padding:1.2rem;margin-bottom:2rem;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))">
+ <div style="font-family:'VT323',monospace;font-size:14px;color:var(--muted);letter-spacing:0.1em;margin-bottom:4px">COMPROVANTE</div>
+ <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.12em;color:var(--green)" id="suc-total">R$ 0,00</div>
+ <div style="font-family:'VT323',monospace;font-size:13px;color:var(--muted);margin-top:2px" id="suc-clips">— clipes selecionados</div>
+ </div>
+ <button class="success-btn" onclick="finishSuccess()">← VOLTAR AO INÍCIO</button>
+ </div>
+</div>
+<div id="map-page" class="page">
+ <nav>
+ <span class="nav-logo" data-text="HOTLINE HIGHLIGHTS" onclick="showPage('main-page')" style="cursor:crosshair">
+ <span class="hl">HOTLINE</span>&nbsp;<span class="hl2">HIGHLIGHTS</span>
+ </span>
+ <div class="nav-right">
+ <button class="nav-tab active-tab" onclick="showPage('map-page')">🗺 MAPA</button>
+ <button class="nav-tab" onclick="showPage('main-page')" id="map-clips-btn" style="display:none">🎬 CLIPES</button>
+ <div class="nav-ig-pill">
+ <div class="nav-ig-dot"></div>
+ <span class="nav-ig-handle" id="map-ig-handle">—</span>
+ </div>
+ </div>
+ </nav>
+ <section class="hero" style="padding-bottom:1rem">
+ <div class="hero-eyebrow">REPLAY DA PARTIDA</div>
+ <h1 class="hero-title" style="font-size:clamp(36px,6vw,72px)">
+ <span class="line1">FLORESTA SUL</span>
+ <span class="line2" data-text="MAPA 2D">MAPA 2D</span>
+ </h1>
+ </section>
+ <div class="map-layout">
+ <div>
+ <div class="map-container">
+ <div class="map-header">
+ <span class="map-title-tag">// VISÃO TÁTICA — VISTA AÉREA</span>
+ <span class="map-time-display" id="map-time-disp">00:00</span>
+ </div>
+ <canvas id="battle-canvas" width="720" height="450"></canvas>
+ <div class="map-controls">
+ <button class="map-ctrl-btn" id="btn-play" onclick="togglePlay()">▶ PLAY</button>
+ <input class="map-scrub" type="range" id="map-scrub" min="0" max="1934" value="0" oninput="scrubTo(this.value)"/>
+ <span class="map-speed" onclick="cycleSpeed()" id="speed-label">1×</span>
+ </div>
+ </div>
+ </div>
+ <aside>
+ <div class="clip-timeline">
+ <div class="ct-header">// CLIPES NA LINHA DO TEMPO</div>
+ <div class="ct-list" id="ct-list"></div>
+ <div class="map-legend">
+ <div class="legend-title">LEGENDA</div>
+ <div class="legend-items" id="legend-items"></div>
+ </div>
+ </div>
+ </aside>
+ </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="main.js"></script>
+</body>
+</html>
